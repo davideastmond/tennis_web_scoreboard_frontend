@@ -4,7 +4,7 @@
 
 ### Related Server Project
 
-Server app is found here ![Server](https://github.com/davideastmond/tennis_web_scoreboard_server)
+Server app is found here [!Server](https://github.com/davideastmond/tennis_web_scoreboard_server)
 
 ### Features
 
