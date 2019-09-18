@@ -66,7 +66,7 @@ app.post('/game/new', [check('p1').trim().escape(), check('p2').trim().escape()]
         // Send a response
         const sessionID = iData.id; // Gets the ID for the tennis game session
         ws.close();
-        res.render('share_link.ejs', { game_link: `http://localhost:${PORT}/game/${iData.id}`});
+        res.render('share_link.ejs', { game_link: `http://${process.env.WEB_LINK}:${PORT}/game/${iData.id}`});
       }
     } else {
       throw "There was an error at index.js line 57";
