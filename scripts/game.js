@@ -1,15 +1,14 @@
 
-const localIP = "ws://192.168.100.115:7001";
-
 $(() => {
-
+	const localIP = $("#web-server").data('webserver').toString();
 	// Create a new client socket
+	console.log("5 local ip", localIP);
 	const clientSocket = new  WebSocket(localIP);
 
 	const g_id = $("#gameID").data('gameid');
 
 	clientSocket.onopen = () => {
-		console.log('onopen fetch!');
+		
 		fetchGameScore(g_id, clientSocket);
 	};
 

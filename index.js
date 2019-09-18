@@ -6,6 +6,7 @@ const path = require('path');
 const uuidv4 = require('uuid/v4');
 const gameDriver = require('./game');
 const WebSocket = require('ws');
+require('dotenv').config();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.set('view engine', 'ejs');
@@ -33,7 +34,9 @@ app.get('/game/:id', (req, res) => {
 
   if (gameDriver.gameArray.includes(req.params.id)) {
     // We found something; render a game page
-    res.render('game.ejs', { gameID: req.params.id });
+    const w_server = process.env.WEB_SERVER;
+
+    res.render('game.ejs', { gameID: req.params.id, web_server: w_server  });
   } else {
     res.status(400).send({ status: 'gameId not found '});
   }
@@ -45,7 +48,7 @@ app.post('/game/new', [check('p1').trim().escape(), check('p2').trim().escape()]
   const uniqueId = uuidv4();
 
   // Send data to tennis_web_server
-  ws = new WebSocket('ws://localhost:7001');
+  ws = new WebSocket(process.env.LOCAL_SERVER_IP);
   ws.on('open', () => {
     console.log("49-- Connected to tennis_web_server");
     const jsonMessage = JSON.stringify({type: 'game_new', game: { id: uniqueId, players: { player1: req.body.p1, player2: req.body.p2 }, score: {p1_score: 15, p2_score: 100 } }});
@@ -63,7 +66,7 @@ app.post('/game/new', [check('p1').trim().escape(), check('p2').trim().escape()]
         // Send a response
         const sessionID = iData.id; // Gets the ID for the tennis game session
         ws.close();
-        res.render('share_link.ejs', { game_link: `http://localhost:${PORT}/game/${iData.id}` });
+        res.render('share_link.ejs', { game_link: `http://localhost:${PORT}/game/${iData.id}`});
       }
     } else {
       throw "There was an error at index.js line 57";
