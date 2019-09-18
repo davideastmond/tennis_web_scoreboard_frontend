@@ -17,49 +17,56 @@ app.use(express.static(path.join(__dirname, 'styles')));
 
 app.use('/game/:id', express.static(path.join(__dirname, 'scripts')));
 app.use('/game/:id', express.static(path.join(__dirname, 'styles')));
-
+app.use('/game/new', express.static(path.join(__dirname, 'scripts')));
+app.use('/game/new', express.static(path.join(__dirname, 'styles')));
 app.listen(PORT, ()=> {
-	console.log(`Client server listening on ${PORT}`);
+  console.log(`Client server listening on ${PORT}`);
 });
 
 app.get('/', (req, res) => {
-	res.render('home.ejs');
+  res.render('home.ejs');
 });
 
 app.get('/game/:id', (req, res) => {
-	// This will render a game page for a second, guest user
-	// We need to make sure a game is registered in the array of games
+  // This will render a game page for a second, guest user
+  // We need to make sure a game is registered in the array of games
 
-	if (gameDriver.gameArray.includes(req.params.id)) {
-		// We found something; render a game page
-		res.render('game.ejs', { gameID: req.params.id });
-	} else {
-		res.status(400).send({ status: 'gameId not found '});
-	}
+  if (gameDriver.gameArray.includes(req.params.id)) {
+    // We found something; render a game page
+    res.render('game.ejs', { gameID: req.params.id });
+  } else {
+    res.status(400).send({ status: 'gameId not found '});
+  }
 });
 
 app.post('/game/new', [check('p1').trim().escape(), check('p2').trim().escape()], (req, res) => {
-	// Post request to start a new game
-	// Generate a UUID and a response with a URL Then communicate with the web_server and advise it of the UUID, opening a channel.
-	const uniqueId = uuidv4();
+  // Post request to start a new game
+  // Generate a UUID and a response with a URL Then communicate with the web_server and advise it of the UUID, opening a channel.
+  const uniqueId = uuidv4();
 
-	// Send data to tennis_web_server
-	ws = new WebSocket('ws://localhost:7001');
-	ws.on('open', () => {
-		console.log("49-- Connected to tennis_web_server");
-		const jsonMessage = JSON.stringify({type: 'game_new', id: uniqueId, players: [req.body.p1, req.body.p2 ]});
-		ws.send(jsonMessage);
-	});
+  // Send data to tennis_web_server
+  ws = new WebSocket('ws://localhost:7001');
+  ws.on('open', () => {
+    console.log("49-- Connected to tennis_web_server");
+    const jsonMessage = JSON.stringify({type: 'game_new', game: { id: uniqueId, players: { player1: req.body.p1, player2: req.body.p2 }, score: {p1_score: 15, p2_score: 100 } }});
+    ws.send(jsonMessage);
+  });
 
-	ws.on('message', (data)=> {
-		ws.close();
-		const iData = JSON.parse(data);
-		// Once we receive a response, we'll register the game
-		gameDriver.gameArray.push(iData.id);
+  ws.on('message', (data)=> {
+    const iData = JSON.parse(data);
+    console.log(iData);
+    if (iData.type === "server_response") {
+      if (iData.message === "game_start_ok") {
+        // Once we receive a response, we'll register the game
+        gameDriver.gameArray.push(iData.id);
 
-		// Send a response
-		const sessionID = iData.id; // Gets the ID for the tennis game session
-		
-		res.render('game.ejs', { gameID: sessionID });
-	});
+        // Send a response
+        const sessionID = iData.id; // Gets the ID for the tennis game session
+        ws.close();
+        res.render('share_link.ejs', { game_link: `http://localhost:${PORT}/game/${iData.id}` });
+      }
+    } else {
+      throw "There was an error at index.js line 57";
+    }
+  });
 });
