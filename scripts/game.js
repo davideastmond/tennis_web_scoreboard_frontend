@@ -17,9 +17,9 @@ $(() => {
 
 		if (recData.type === "server_response") {
 			if (recData.message === "current_game_score") {
-				console.log("24, id", recData.id);
-				$("#tap-p1-score").text(recData.score.p1_score);
-				$("#tap-p2-score").text(recData.score.p2_score);
+				console.log("Data received", recData);
+				$("#tap-p1-score").text(recData.game.tennis_score[0]);
+				$("#tap-p2-score").text(recData.game.tennis_score[1]);
 			}
 		} else if (recData.message === "game_id_not_found") {
 			alert("game id not found");
@@ -33,12 +33,12 @@ $(() => {
 		// Send a message to server
 		console.log("player 1 score tapped");
 		// Bumthe score
-		bumpScore(g_id, 1, clientSocket);
+		bumpScore(g_id, 0, clientSocket);
 	});
 
 	$("#tap-p2-score").click((e) => {
 		console.log("player 2 score tapped");
-		bumpScore(g_id, 2, clientSocket);
+		bumpScore(g_id, 1, clientSocket);
 	});
 });
 
@@ -48,7 +48,7 @@ function fetchGameScore(gameID, socket) {
 
 function bumpScore(gameID, int_forPlayer, socket) {
 	// This increases the player score based on either player 1 or 2
-	if (int_forPlayer !== 1 && int_forPlayer !== 2) {
+	if (int_forPlayer !== 0 && int_forPlayer !== 1) {
 		throw "Invalid player";
 	}
 		// Connection made
