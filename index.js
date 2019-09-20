@@ -50,7 +50,14 @@ app.post('/game/new', [check('p1').trim().escape(), check('p2').trim().escape()]
   // Send data to tennis_web_server
   ws = new WebSocket(process.env.WEB_SERVER);
   ws.on('open', () => {
-    const jsonMessage = JSON.stringify({type: 'game_new', game: { id: uniqueId, players: { 0: req.body.p1, 1: req.body.p2 }, score: { 0: 0, 1: 0 }, tennis_score: {0: '0', 1: '0'}, tie_break: false, current_set: 0, sets: { 0: [0 , 0], 1: [0, 0], 2: [0, 0], 3: [0, 0], 4: [0, 0] } }});
+    const jsonMessage = JSON.stringify({type: 'game_new', 
+      game: { id: uniqueId, players: { 0: req.body.p1, 1: req.body.p2 }, 
+        score: { 0: 0, 1: 0 }, 
+        tennis_score: {0: '0', 1: '0'}, 
+        tie_break: false, 
+        current_set: 0, 
+        deuce_count: 0, 
+        sets: { 0: [0 , 0], 1: [0, 0], 2: [0, 0], 3: [0, 0], 4: [0, 0] } }});
     ws.send(jsonMessage);
   });
 
