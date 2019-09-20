@@ -6,6 +6,7 @@ const path = require('path');
 const uuidv4 = require('uuid/v4');
 const gameDriver = require('./game');
 const WebSocket = require('ws');
+const request = require('request');
 require('dotenv').config();
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -51,7 +52,8 @@ app.post('/game/new', [check('p1').trim().escape(), check('p2').trim().escape()]
   ws = new WebSocket(process.env.WEB_SERVER);
   ws.on('open', () => {
     const jsonMessage = JSON.stringify({type: 'game_new', 
-      game: { id: uniqueId, players: { 0: req.body.p1, 1: req.body.p2 }, 
+			game: { id: uniqueId, players: { 0: req.body.p1, 1: req.body.p2 },
+				active: true, 
         score: { 0: 0, 1: 0 }, 
         tennis_score: {0: '0', 1: '0'}, 
         tie_break: false, 
