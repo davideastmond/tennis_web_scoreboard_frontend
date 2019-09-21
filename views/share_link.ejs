@@ -29,9 +29,13 @@
 <body>
 	<div> 
 		<p class="lead"> Share this link with your mates</p><input type="text" style="width: 100%;" id="game-link" value="<%= game_link %>" onclick="this.select()" readonly>
+		<p id="api-key" data-apikey= <%= api_key %> hidden></p>
 	</div>
 	<div>
-		<button id="start-game-button btn btn-success"> Start </button>
+		<button id="start-game-button" class="btn btn-success"> Start </button>
+	</div>
+	<div id="qr-code-share-div">
+		<p class="lead"> Or have your mates scan this QR code to join the session</p>
 	</div>
 </body>
 </html>

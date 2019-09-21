@@ -2,7 +2,6 @@
 $(() => {
   const localIP = $("#web-server").data('webserver').toString();
   // Create a new client socket
-  console.log("5 local ip", localIP);
   const clientSocket = new  WebSocket(localIP);
 
   const g_id = $("#gameID").data('gameid');
@@ -26,7 +25,6 @@ $(() => {
       console.log("Unrecognized response");
     }
   };
-
 
   $("#tap-p1-score").click((e) => {
     // Send a message to server

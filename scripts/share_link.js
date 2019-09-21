@@ -1,31 +1,28 @@
 $(()=> {
 	// Grab the value from the link text
 	const dataLink = encodeURIComponent($("#game-link").val());
-	
+	const api_key = $("#api-key").data('apikey');
+	const qr_size = 5;
 	var settings = {
 		"async": true,
 		"crossDomain": true,
-		"url": "https://neutrinoapi-qr-code.p.rapidapi.com/qr-code",
-		"method": "POST",
+		"url": `https://pierre2106j-qrcode.p.rapidapi.com/api?backcolor=ffffff&pixel=${qr_size}&ecl=L%20%7C%20M%7C%20Q%20%7C%20H&forecolor=000000&type=text%20%7C%20url%20%7C%20tel%20%7C%20sms%20%7C%20email&text=${dataLink}`,
+		"method": "GET",
 		"headers": {
-			"x-rapidapi-host": "neutrinoapi-qr-code.p.rapidapi.com",
-			"x-rapidapi-key": "a3af53267emshff97be782ee184dp1fd442jsnc1bad4243ec1",
-			"content-type": "application/x-www-form-urlencoded"
-		},
-		"data": {
-			"bg-color": "#ffffff",
-			"width": "128",
-			"fg-color": "#000000",
-			"height": "128",
-			"content": $("#game-link").val()
+			"x-rapidapi-host": "pierre2106j-qrcode.p.rapidapi.com",
+			"x-rapidapi-key": api_key
 		}
 	};
 	
-	$.ajax(settings).done(function (response, textStatus, jqXHR) {
-		
-		console.log("Text status", textStatus);
-		console.log("Text status", jqXHR);
+	$.ajax(settings).done(function (response, textStatus, jqXHR) {	
+		const qrImage = $('<img id="qr-code-image">').attr('src', response);
+		$("#qr-code-share-div").append(qrImage);
 	});
 	
-
+	$("#start-game-button").click ((e) => {
+		// This will navigate to the game session
+		const navigationURL = $("#game-link").val();
+		window.location = navigationURL;
+	});
+	
 });

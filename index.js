@@ -57,7 +57,8 @@ app.post('/game/new', [check('p1').trim().escape(), check('p2').trim().escape()]
         score: { 0: 0, 1: 0 }, 
         tennis_score: {0: '0', 1: '0'}, 
         tie_break: false, 
-        current_set: 0, 
+				current_set: 0,
+				max_set_game: 3, // Can be either 3 or 5
         deuce_count: 0, 
         sets: { 0: [0 , 0], 1: [0, 0], 2: [0, 0], 3: [0, 0], 4: [0, 0] } }});
     ws.send(jsonMessage);
@@ -74,7 +75,7 @@ app.post('/game/new', [check('p1').trim().escape(), check('p2').trim().escape()]
         // Send a response
         const sessionID = iData.id; // Gets the ID for the tennis game session
         ws.close();
-        res.render('share_link.ejs', { game_link: `${process.env.WEB_LINK}/game/${iData.id}`});
+        res.render('share_link.ejs', { game_link: `${process.env.WEB_LINK}/game/${iData.id}`, api_key: process.env.QR_API_KEY });
       }
     } else {
       throw "There was an error at index.js line 57";

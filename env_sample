@@ -1,3 +1,4 @@
 WEB_SERVER=YOUR_WEB_SERVER_ADDR
 LOCAL_SERVER_IP=YOUR_LOCAL_IP:PORT
 WEB_LINK=http://YOUR_LOCAL_HOST_AND_PORT
+QR_API_KEY=[Your RapidAPI API key	https://rapidapi.com . Use the QR API https://rapidapi.com/pierre2106j/api/qrcode]
