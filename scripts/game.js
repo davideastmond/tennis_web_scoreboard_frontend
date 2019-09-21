@@ -66,5 +66,8 @@ function updateUIDisplay(recData, error) {
   if (error) {
     $("#main-game-div").css('display', 'none');
     alert('connection lost');
-  }
+	}
+	
+	const $table_rows = $('tr');
+	console.log($table_rows);
 }
