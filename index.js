@@ -58,9 +58,12 @@ app.post('/game/new', [check('p1').trim().escape(), check('p2').trim().escape()]
         tennis_score: {0: '0', 1: '0'}, 
         tie_break: false, 
         current_set: 0,
-        max_set_game: 3, // Can be either 3 or 5
+        max_set_game: 5, // Can be either 3 or 5
         deuce_count: 0, 
-        sets: { 0: [0 , 0], 1: [0, 0], 2: [0, 0], 3: [0, 0], 4: [0, 0] } }});
+        sets: { 0: [0 , 0, false], 1: [0, 0, false], 2: [0, 0, false], 3: [0, 0, false], 4: [0, 0, false] },
+        set_winners: { 0: null, 1: null, 2: null, 3: null, 4: null} 
+      }});
+        
     ws.send(jsonMessage);
   });
 

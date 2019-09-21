@@ -7,7 +7,7 @@ your mobile phone? With the power of the web, you can keep track of your games, 
 This project is the front end part, which allows the initiator to enter the names of player and start a game. A random link is generated (along with a QR code), which the 
 initiator can send to their mates or an umpire even, to keep track of the score, live in real time.
 
-Once a user joins a game session via the link, their client connects to teh web_score_board_server, where the game information is served to each client.
+Once a user joins a game session via the link, their client connects to the web server, where the game information is served to each client.
 
 ### Related Server Project
 
