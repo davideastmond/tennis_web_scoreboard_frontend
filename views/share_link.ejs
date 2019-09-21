@@ -5,11 +5,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Link</title>
-	<!-- UIkit CSS -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Link</title>
+  <!-- UIkit CSS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.2.0/css/uikit.min.css" />
 
 <!-- Bootstrap -->
@@ -27,15 +27,15 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </head>
 <body>
-	<div> 
-		<p class="lead"> Share this link with your mates</p><input type="text" style="width: 100%;" id="game-link" value="<%= game_link %>" onclick="this.select()" readonly>
-		<p id="api-key" data-apikey= <%= api_key %> hidden></p>
-	</div>
-	<div>
-		<button id="start-game-button" class="btn btn-success"> Start </button>
-	</div>
-	<div id="qr-code-share-div">
-		<p class="lead"> Or have your mates scan this QR code to join the session</p>
-	</div>
+  <div> 
+    <p class="lead"> Share this link with your mates</p><input type="text" style="width: 100%;" id="game-link" value="<%= game_link %>" onclick="this.select()" readonly>
+    <p id="api-key" data-apikey= <%= api_key %> hidden></p>
+  </div>
+  <div>
+    <button id="start-game-button" class="btn btn-success"> Start </button>
+  </div>
+  <div id="qr-code-share-div">
+    <p class="lead"> Or have your mates scan this QR code to join the session</p>
+  </div>
 </body>
 </html>
