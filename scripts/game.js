@@ -7,7 +7,6 @@ $(() => {
   const g_id = $("#gameID").data('gameid');
 
   clientSocket.onopen = () => {
-    
     fetchGameScore(g_id, clientSocket);
   };
 
@@ -16,7 +15,6 @@ $(() => {
 
     if (recData.type === "server_response") {
       if (recData.message === "current_game_score") {
-        console.log("Data received", recData);
         updateUIDisplay(recData);
       }
     } else if (recData.message === "game_id_not_found") {
@@ -61,7 +59,9 @@ function updateUIDisplay(recData, error) {
   $("#tap-p1-score").text(recData.game.tennis_score[0]);
   $("#tap-p2-score").text(recData.game.tennis_score[1]);
   $("#p1-label").text(recData.game.players[0]);
-  $("#p2-label").text(recData.game.players[1]);
+	$("#p2-label").text(recData.game.players[1]);
+	$("#player-one-name").html(recData.game.players[0]);
+	$("#player-two-name").html(recData.game.players[1]);
 
   if (error) {
     $("#main-game-div").css('display', 'none');
