@@ -71,7 +71,7 @@ function updateUIDisplay(recData, error) {
   
   const $table_rows = $('tr');
   console.log($table_rows[1].cells[1].innerHTML);
-  updateSetTable(recData.game.sets);
+  updateSetTable(recData.game);
 }
 
 
@@ -87,10 +87,14 @@ function showHideSets(recData, error) {
 function updateSetTable(setsObject) {
   // This function takes in only the sets object, iterates over it and updates the set scoreboard table
   const $table_rows = $('tr');
-  for (let [key, value] of Object.entries(setsObject)) {
-    console.log("KV", key, value);
-    console.log(typeof(key), typeof(value));
-    $table_rows[1].cells[parseInt(key) + 1].innerHTML = setsObject[key][0];
-    $table_rows[2].cells[parseInt(key) + 1].innerHTML = setsObject[key][1];
-  }
+  for (let [key, value] of Object.entries(setsObject.sets)) {
+    $table_rows[1].cells[parseInt(key) + 1].innerHTML = setsObject.sets[key][0];
+    $table_rows[2].cells[parseInt(key) + 1].innerHTML = setsObject.sets[key][1];
+
+    // Update colors for game winners
+    if (setsObject.set_winners[key]) {
+      console.log($table_rows[setsObject.set_winners[key] + 1].cells[parseInt(key) + 1]);
+      //$table_rows[setsObject.set_winners[key] + 1].cells[parseInt(key) + 1].css('color', 'green');
+    }
+  } 
 }

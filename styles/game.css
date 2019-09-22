@@ -1,5 +1,6 @@
 .player-score {
-  font-size: 92px;
+	font-size: 92px;
+	margin-left: 5px;
 }
 
 #p1-score-div {
@@ -7,4 +8,28 @@
 }
 #p2-score-div {
   background-color: #7b8494;
+}
+
+@media only screen and (max-width: 740px) and (orientation: landscape) {
+	.player-score {
+		font-size: 52px;
+	}
+
+	.score-centered-landscape {
+		text-align: center;
+	}
+
+	#main-game-div {
+		width: 10%;
+		float: left;
+	}
+
+	.caption-landscape {
+		visibility: hidden;
+	}
+	#set-score-enclosure-div {
+		margin-top: 10%;
+		width: 90%;
+		float: right;
+	}
 }

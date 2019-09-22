@@ -47,6 +47,10 @@ app.post('/game/new', [check('p1').trim().escape(), check('p2').trim().escape()]
   // Post request to start a new game
   // Generate a UUID and a response with a URL Then communicate with the web_server and advise it of the UUID, opening a channel.
   const uniqueId = uuidv4();
+  let setCount = 3;
+  if (req.body.fivecheck=== 'on') {
+    setCount = 5;
+  }
 
   // Send data to tennis_web_server
   ws = new WebSocket(process.env.WEB_SERVER);
@@ -58,7 +62,7 @@ app.post('/game/new', [check('p1').trim().escape(), check('p2').trim().escape()]
         tennis_score: {0: '0', 1: '0'}, 
         tie_break: false, 
         current_set: 0,
-        max_set_game: 5, // Can be either 3 or 5
+        max_set_game: setCount, // Can be either 3 or 5
         deuce_count: 0, 
         sets: { 0: [0 , 0, false], 1: [0, 0, false], 2: [0, 0, false], 3: [0, 0, false], 4: [0, 0, false] },
         set_winners: { 0: null, 1: null, 2: null, 3: null, 4: null} 

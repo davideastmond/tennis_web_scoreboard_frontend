@@ -2,7 +2,7 @@ $(()=> {
   // Grab the value from the link text
   const dataLink = encodeURIComponent($("#game-link").val());
   const api_key = $("#api-key").data('apikey');
-  const qr_size = 5;
+  const qr_size = 4;
   var settings = {
     "async": true,
     "crossDomain": true,
