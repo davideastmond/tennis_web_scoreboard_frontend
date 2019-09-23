@@ -43,12 +43,17 @@ function fetchGameScore(gameID, socket) {
 
 function bumpScore(gameID, int_forPlayer, socket) {
   // This increases the player score based on either player 1 or 2
+  const uid = window.sessionStorage.getItem('gameID');
+  if (!uid) {
+    alert("There was an error. Please create a new session.");
+    throw "Can't increase score - bad session";
+  }
   if (int_forPlayer !== 0 && int_forPlayer !== 1) {
     throw "Invalid player";
   }
     // Connection made
   try {
-    socket.send(JSON.stringify({ type: "bump_score", id: gameID, forPlayer: int_forPlayer}));
+    socket.send(JSON.stringify({ type: "bump_score", id: gameID, forPlayer: int_forPlayer, encryptedValue: uid }));
   } catch (error) {
     console.log(error);
   }
@@ -69,8 +74,6 @@ function updateUIDisplay(recData, error) {
     alert('connection lost');
   }
   
-  const $table_rows = $('tr');
-  console.log($table_rows[1].cells[1].innerHTML);
   updateSetTable(recData.game);
 }
 
@@ -91,10 +94,13 @@ function updateSetTable(setsObject) {
     $table_rows[1].cells[parseInt(key) + 1].innerHTML = setsObject.sets[key][0];
     $table_rows[2].cells[parseInt(key) + 1].innerHTML = setsObject.sets[key][1];
 
+    //console.log(key);
     // Update colors for game winners
-    if (setsObject.set_winners[key]) {
-      console.log($table_rows[setsObject.set_winners[key] + 1].cells[parseInt(key) + 1]);
-      //$table_rows[setsObject.set_winners[key] + 1].cells[parseInt(key) + 1].css('color', 'green');
-    }
   } 
+
+  for (let [key, value] of Object.entries(setsObject.set_winners)) {
+    if(value) {
+      console.log("There is a key value at", key, value);
+    }
+  }
 }

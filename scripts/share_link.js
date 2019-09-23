@@ -14,6 +14,8 @@ $(()=> {
     }
   };
   
+  setSession();
+ 
   $.ajax(settings).done(function (response, textStatus, jqXHR) {	
     const qrImage = $('<img id="qr-code-image">').attr('src', response);
     $("#qr-code-share-div").append(qrImage);
@@ -22,7 +24,14 @@ $(()=> {
   $("#start-game-button").click ((e) => {
     // This will navigate to the game session
     const navigationURL = $("#game-link").val();
+    
     window.location = navigationURL;
+    
   });
   
 });
+
+function setSession () {
+  const game_id = $("#game-id").data('gameid');
+  window.sessionStorage.setItem('gameID', game_id );
+}

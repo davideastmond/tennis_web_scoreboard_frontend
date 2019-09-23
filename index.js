@@ -82,7 +82,7 @@ app.post('/game/new', [check('p1').trim().escape(), check('p2').trim().escape()]
         // Send a response
         const sessionID = iData.id; // Gets the ID for the tennis game session
         ws.close();
-        res.render('share_link.ejs', { game_link: `${process.env.WEB_LINK}/game/${iData.id}`, api_key: process.env.QR_API_KEY });
+        res.render('share_link.ejs', { game_link: `${process.env.WEB_LINK}/game/${iData.id}`, api_key: process.env.QR_API_KEY, game_id: iData.encryptedValue });
       }
     } else {
       throw "There was an error at index.js line 57";

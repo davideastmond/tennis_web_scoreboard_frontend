@@ -28,20 +28,20 @@
   <!-- This is the main page. 
   1. The gamemaster will enter the players in the game and then click submit -->
   <div class="jumbotron">
-    <p class="h2"> Enter Players </p>
+    <p class="h4">Players</p>
     <form method="POST" action="/game/new">
       <div class="form-group">
-        <label for="player-one-name">P1:</label>
-        <input type="text" class="form-control" id="player-one-name-input" name="p1"  placeholder="Player/Team 1" required>
+        <label for="player-one-name">Player/Team 1:</label>
+        <input type="text" class="form-control" id="player-one-name-input" name="p1" placeholder="Player/Team 1" required>
       </div>
       <div class="form-group">
-        <label for="player-two-name">P2:</label>
-        <input type="text" class="form-control" id="player-two-name-input" name="p2"  placeholder="Player/Team 2" required>
-			</div>
-			<div class="input-group-text">
-					<input type="checkbox" aria-label="5-set game" name="fivecheck" id='set-checkbox'> 5-set game </input>
-			</div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+        <label for="player-two-name">Player/Team 2:</label>
+        <input type="text" class="form-control" id="player-two-name-input" name="p2" placeholder="Player/Team 2" required>
+      </div>
+      <div class="input-group-text">
+          <label id='set-checkbox'><input type="checkbox" aria-label="5-set game" name="fivecheck">5-set game</label>
+      </div>
+      <button type="submit" class="form-control btn btn-primary">Submit</button>
     </form>
   </div>
 </body>
