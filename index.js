@@ -55,10 +55,10 @@ app.get('/game/:id', (req, res) => {
           const w_server = process.env.WEB_SERVER;
           res.render('game.ejs', { gameID: server_response.game_data.id, web_server: w_server  });
         } else {
-          res.status(400).send({ status: 'gameId not found '});
+          res.status(400).send({ status: 'gameId not found did not find game'});
         }
       } else {
-        res.status(400).send({ status: 'gameId not found '});
+        res.status(400).send({ status: 'gameId not found no server response'});
       }
     });
     
