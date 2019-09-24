@@ -45,8 +45,7 @@ function bumpScore(gameID, int_forPlayer, socket) {
   // This increases the player score based on either player 1 or 2
   const uid = window.sessionStorage.getItem('gameID');
   if (!uid) {
-    alert("There was an error. Please create a new session.");
-    throw "Can't increase score - bad session";
+    return;
   }
   if (int_forPlayer !== 0 && int_forPlayer !== 1) {
     throw "Invalid player";

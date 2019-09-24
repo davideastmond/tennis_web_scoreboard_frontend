@@ -39,7 +39,29 @@ app.get('/game/:id', (req, res) => {
 
     res.render('game.ejs', { gameID: req.params.id, web_server: w_server  });
   } else {
-    res.status(400).send({ status: 'gameId not found '});
+    // If the game ID is not found, let's check the web server
+    ws = new WebSocket(process.env.WEB_SERVER);
+    ws.on('open', ()=> {
+      const jsonMessage = JSON.stringify({ type: 'client_request_updated_game_data', id: req.params.id });
+      ws.send(jsonMessage);
+    });
+
+    ws.on('message', (data)=> {
+      // Get a response back if the game is
+      const server_response = JSON.parse(data);
+
+      if (server_response.type === "server_response") {
+        if (server_response.status === "found_game") {
+          const w_server = process.env.WEB_SERVER;
+          res.render('game.ejs', { gameID: server_response.game_data.id, web_server: w_server  });
+        } else {
+          res.status(400).send({ status: 'gameId not found '});
+        }
+      } else {
+        res.status(400).send({ status: 'gameId not found '});
+      }
+    });
+    
   }
 });
 
