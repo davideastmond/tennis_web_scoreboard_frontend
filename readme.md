@@ -32,6 +32,15 @@ Server app is found here [!Server](https://github.com/davideastmond/tennis_web_s
 - Run `npm i` to install dependencies
 - Create a .env file using the env_sample templates. Fill in the missing info for your local host, and insert your RapidAPI key in the correct field.
 - run `npm start` to launch the app.
+
+### End user usage
+
+1. Visit the home page
+2. Enter the player or team names
+3. Select a 3 or 5 set match
+4. Share the generated URL with your mates, or have them scan the generated QR code
+5. Access the link and observe the game score. The game creator will be able to change the game score
+
 ### Dependencies
 
 - uuid

@@ -21,7 +21,7 @@ app.use('/game/:id', express.static(path.join(__dirname, 'scripts')));
 app.use('/game/:id', express.static(path.join(__dirname, 'styles')));
 app.use('/game/new', express.static(path.join(__dirname, 'scripts')));
 app.use('/game/new', express.static(path.join(__dirname, 'styles')));
-app.listen(PORT, ()=> {
+app.listen(PORT, () => {
   console.log(`Client server listening on ${PORT}`);
 });
 
@@ -41,12 +41,12 @@ app.get('/game/:id', (req, res) => {
   } else {
     // If the game ID is not found, let's check the web server
     ws = new WebSocket(process.env.WEB_SERVER);
-    ws.on('open', ()=> {
+    ws.on('open', () => {
       const jsonMessage = JSON.stringify({ type: 'client_request_updated_game_data', id: req.params.id });
       ws.send(jsonMessage);
     });
 
-    ws.on('message', (data)=> {
+    ws.on('message', (data) => {
       // Get a response back if the game is
       const server_response = JSON.parse(data);
 
@@ -93,7 +93,7 @@ app.post('/game/new', [check('p1').trim().escape(), check('p2').trim().escape()]
     ws.send(jsonMessage);
   });
 
-  ws.on('message', (data)=> {
+  ws.on('message', (data) => {
     const iData = JSON.parse(data);
     console.log(iData);
     if (iData.type === "server_response") {

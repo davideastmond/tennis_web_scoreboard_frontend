@@ -1,4 +1,4 @@
-$(()=> {
+$(() => {
   // Grab the value from the link text
   const dataLink = encodeURIComponent($("#game-link").val());
   const api_key = $("#api-key").data('apikey');
@@ -16,7 +16,7 @@ $(()=> {
   
   setSession();
  
-  $.ajax(settings).done(function (response, textStatus, jqXHR) {	
+  $.ajax(settings).done((response, textStatus, jqXHR) => {	
     const qrImage = $('<img id="qr-code-image">').attr('src', response);
     $("#qr-code-share-div").append(qrImage);
   });
