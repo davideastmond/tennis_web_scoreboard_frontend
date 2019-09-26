@@ -28,7 +28,6 @@ $(() => {
   // When the user taps
   $("#tap-p1-score").click((e) => {
     // Send a message to server
-    // Bumthe score
     bumpScore(g_id, 0, clientSocket);
   });
 

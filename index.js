@@ -100,7 +100,6 @@ app.post('/game/new', [check('p1').trim().escape(), check('p2').trim().escape()]
       if (iData.message === "game_start_ok") {
         // Once we receive a response, we'll register the game
         gameDriver.gameArray.push(iData.id);
-
         // Send a response
         const sessionID = iData.id; // Gets the ID for the tennis game session
         ws.close();
